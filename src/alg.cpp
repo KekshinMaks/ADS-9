@@ -1,11 +1,10 @@
 // Copyright 2022 NNTU-CS
-#include  <iostream>
-#include  <fstream>
-#include  <locale>
-#include  <cstdlib>
 #include "tree.h"
-
 #include <algorithm>
+#include <cstdlib>
+#include <fstream>
+#include <iostream>
+#include <locale>
 #include <memory>
 #include <vector>
 
