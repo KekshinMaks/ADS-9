@@ -11,12 +11,11 @@ PMTree::PMTree(const std::vector<char>& elements) {
         return;
     }
     
-    root = std::make_shared<Node>('\0'); 
+    root = std::make_shared<Node>('\0');
     std::vector<char> sorted = elements;
     std::sort(sorted.begin(), sorted.end());
     buildTree(root, sorted);
 }
-
 
 int PMTree::factorial(int n) const {
     int result = 1;
@@ -26,20 +25,17 @@ int PMTree::factorial(int n) const {
     return result;
 }
 
-
 void PMTree::buildTree(std::shared_ptr<Node> node, std::vector<char> remaining) {
     if (remaining.empty()) {
         return;
     }
     
-
     std::sort(remaining.begin(), remaining.end());
     
     for (char c : remaining) {
         auto child = std::make_shared<Node>(c);
         node->children.push_back(child);
         
-
         std::vector<char> newRemaining;
         for (char rc : remaining) {
             if (rc != c) {
@@ -50,7 +46,6 @@ void PMTree::buildTree(std::shared_ptr<Node> node, std::vector<char> remaining) 
         buildTree(child, newRemaining);
     }
 }
-
 
 std::vector<std::vector<char>> getAllPerms(const PMTree& tree) {
     std::vector<std::vector<char>> result;
@@ -64,7 +59,6 @@ std::vector<std::vector<char>> getAllPerms(const PMTree& tree) {
     
     return result;
 }
-
 
 void PMTree::getAllPermsRecursive(std::shared_ptr<Node> node, 
                                   std::vector<char>& current,
@@ -82,7 +76,6 @@ void PMTree::getAllPermsRecursive(std::shared_ptr<Node> node,
         current.pop_back();
     }
 }
-
 
 std::vector<char> getPerm1(const PMTree& tree, int num) {
     if (num < 1) {
@@ -112,7 +105,6 @@ std::vector<char> getPerm2(const PMTree& tree, int num) {
     auto currentNode = tree.root;
     int remaining = num;
     
-
     while (currentNode && !currentNode->children.empty()) {
         int childCount = currentNode->children.size();
         int permsPerChild = tree.factorial(childCount - 1);
@@ -131,26 +123,4 @@ std::vector<char> getPerm2(const PMTree& tree, int num) {
     }
     
     return result;
-}
-
-void PMTree::printTree() const {
-    if (!root) return;
-    
-    std::function<void(std::shared_ptr<Node>, int)> printNode = 
-        [&](std::shared_ptr<Node> node, int level) {
-            std::string indent(level * 2, ' ');
-            std::cout << indent << "Node: ";
-            if (node->value != '\0') {
-                std::cout << node->value;
-            } else {
-                std::cout << "root";
-            }
-            std::cout << " (children: " << node->children.size() << ")\n";
-            
-            for (const auto& child : node->children) {
-                printNode(child, level + 1);
-            }
-        };
-    
-    printNode(root, 0);
 }
