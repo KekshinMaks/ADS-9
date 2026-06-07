@@ -9,7 +9,6 @@ private:
     struct Node {
         char value;
         std::vector<std::shared_ptr<Node>> children;
-        
         Node(char val) : value(val) {}
     };
     
@@ -22,14 +21,10 @@ private:
     
 public:
     PMTree(const std::vector<char>& elements);
-    ~PMTree() = default;
     
     friend std::vector<std::vector<char>> getAllPerms(const PMTree& tree);
     friend std::vector<char> getPerm1(const PMTree& tree, int num);
     friend std::vector<char> getPerm2(const PMTree& tree, int num);
-    
-
-    void printTree() const;
 };
 
 std::vector<std::vector<char>> getAllPerms(const PMTree& tree);
